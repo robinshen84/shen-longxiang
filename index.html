@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>沈龙翔 — AI产品经理 · AIGC实战专家</title>
+<title>沈龙翔（瓦叔） — AI产品经理 · AIGC实战专家</title>
 <meta name="description" content="20年技术沉淀，让AI在教育中自然发生。靠谱瓦叔的个人网站。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,31 @@
 </head>
 <body>
 
+<!-- ===== LOADER — Explosion Opening ===== -->
+<div class="loader" id="loader">
+  <canvas class="loader-canvas" id="loaderCanvas"></canvas>
+  <div class="loader-content">
+    <span class="loader-char">靠</span>
+    <span class="loader-char">谱</span>
+    <span class="loader-char">瓦</span>
+    <span class="loader-char">叔</span>
+    <span class="loader-char">A</span>
+    <span class="loader-char">I</span>
+    <span class="loader-char">趣</span>
+    <span class="loader-char">探</span>
+  </div>
+</div>
+
+<!-- ===== CUSTOM CURSOR — Blue Dot + Text Trail ===== -->
+<div class="cursor-custom" id="cursorCustom">
+  <div class="cursor-dot"></div>
+  <span class="cursor-text-trail">带你认识瓦叔</span>
+</div>
+
 <!-- ===== NAVIGATION ===== -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">沈龙翔</a>
+    <a href="#" class="nav-logo">沈龙翔（瓦叔）</a>
     <div class="nav-links">
       <a href="#about">关于</a>
       <a href="#projects">项目</a>
@@ -31,7 +52,11 @@
 
 <!-- ===== HERO ===== -->
 <header class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+  </div>
   <div class="hero-content">
     <div class="hero-tag reveal">AI产品经理 · AIGC实战专家 · 自媒体主理人</div>
     <h1 class="hero-title split-text">
@@ -99,7 +124,7 @@
       <div class="about-card reveal">
         <div class="about-icon">🎤</div>
         <h3>影响力布道者</h3>
-        <p>做客罗振宇直播间，作为「AI 家庭教育实践者」分享理念。深度参与抖音集团「V 聚场」公益科普，获区委书记颁发优秀导师。</p>
+        <p>做客罗振宇直播间，作为「AI 家庭教育实践者」分享理念。深度参与杨浦区网信办联合抖音集团创办的「V 聚场 AI 开放麦」公益科普，获区委书记颁发优秀导师奖状。</p>
       </div>
     </div>
   </div>
@@ -151,7 +176,7 @@
           <span class="project-tag">公益科普</span>
         </div>
         <h3>「V 聚场：AI 开放麦」共建与导师</h3>
-        <p>深度参与抖音集团发起的公益活动，每周进行技术分享与公益科普，获杨浦区区委书记颁发「优秀导师」荣誉，并作为代表发言。</p>
+        <p>深度参与杨浦区网信办联合抖音集团创办的公益活动，每周进行技术分享与公益科普，获杨浦区区委书记颁发「优秀导师」荣誉，并作为代表发言。</p>
       </div>
 
       <div class="project-card reveal" data-year="2025">
@@ -320,7 +345,7 @@
     <div class="contact-grid reveal">
       <div class="contact-item">
         <span class="contact-label">邮箱</span>
-        <a href="mailto:robinsheng4@qq.com" class="contact-value">robinsheng4@qq.com</a>
+        <a href="mailto:robinshen84@qq.com" class="contact-value">robinshen84@qq.com</a>
       </div>
       <div class="contact-item">
         <span class="contact-label">公众号</span>
@@ -337,7 +362,7 @@
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="container">
-    <p>© 2026 沈龙翔. 让 AI 在教育中自然发生。</p>
+    <p>© 2026 沈龙翔（瓦叔）. 让 AI 在教育中自然发生。</p>
   </div>
 </footer>
 
