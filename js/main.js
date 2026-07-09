@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initRevealOnScroll();
   initCounters();
   initSmoothScroll();
+  initPhotoWall();
+  initBadgeConfetti();
 });
 
 // ── Loader — Canvas Particle Explosion ──
@@ -142,6 +144,7 @@ function initHeroAnimation() {
 function initCustomCursor() {
   const cursor = document.getElementById('cursorCustom');
   if (!cursor) return;
+  const textTrail = cursor.querySelector('.cursor-text-trail');
 
   // Skip on touch devices
   if ('ontouchstart' in window) {
@@ -151,6 +154,28 @@ function initCustomCursor() {
   }
 
   document.body.style.cursor = 'none';
+
+  // Split the cursor text into characters so each one can move like a wave.
+  let textWaveRafId = null;
+  if (textTrail) {
+    const chars = Array.from(textTrail.textContent || '');
+    textTrail.innerHTML = chars
+      .map(char => `<span class="cursor-wave-char">${char === ' ' ? '&nbsp;' : char}</span>`)
+      .join('');
+
+    const waveChars = textTrail.querySelectorAll('.cursor-wave-char');
+
+    function animateTextWave(time) {
+      waveChars.forEach((char, index) => {
+        const offsetY = Math.sin(time / 180 + index * 0.55) * 4;
+        const offsetX = Math.cos(time / 260 + index * 0.35) * 1.5;
+        char.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+      textWaveRafId = requestAnimationFrame(animateTextWave);
+    }
+
+    textWaveRafId = requestAnimationFrame(animateTextWave);
+  }
 
   let mouseX = -100;
   let mouseY = -100;
@@ -196,6 +221,262 @@ function initCustomCursor() {
       rafId = requestAnimationFrame(updateCursor);
     }
   }
+}
+
+// ── Photo Wall — hover focus + click lightbox ──
+function initPhotoWall() {
+  const wall = document.getElementById('photo-wall');
+  const track = wall?.querySelector('.photo-wall-track');
+  const cards = wall?.querySelectorAll('.photo-card');
+  const lightbox = document.getElementById('photoLightbox');
+  const lightboxMedia = document.getElementById('photoLightboxMedia');
+  const lightboxCaption = document.getElementById('photoLightboxTitle');
+  const lightboxClose = document.getElementById('photoLightboxClose');
+
+  if (!wall || !track || !cards?.length || !lightbox || !lightboxMedia || !lightboxCaption || !lightboxClose) {
+    return;
+  }
+
+  let activeCard = null;
+
+  function setActiveCard(card) {
+    activeCard = card;
+    track.classList.add('is-paused', 'is-hovering');
+    cards.forEach(item => item.classList.toggle('is-active', item === card));
+  }
+
+  function clearActiveCard() {
+    if (lightbox.classList.contains('is-open')) return;
+    activeCard = null;
+    track.classList.remove('is-paused', 'is-hovering');
+    cards.forEach(item => item.classList.remove('is-active'));
+  }
+
+  function getMediaMarkup(card) {
+    const image = card.querySelector('img');
+    const placeholder = card.querySelector('.photo-placeholder');
+
+    if (image) {
+      return `<img src="${image.getAttribute('src')}" alt="${image.getAttribute('alt') || ''}">`;
+    }
+
+    return placeholder ? placeholder.outerHTML : '';
+  }
+
+  function openLightbox(card) {
+    const caption = card.querySelector('.photo-caption')?.textContent?.trim() || '';
+    lightboxMedia.innerHTML = getMediaMarkup(card);
+    lightboxCaption.textContent = caption;
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('photo-lightbox-open');
+    setActiveCard(card);
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('photo-lightbox-open');
+    lightboxMedia.innerHTML = '';
+    lightboxCaption.textContent = '';
+    clearActiveCard();
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => setActiveCard(card));
+    card.addEventListener('mouseleave', () => {
+      if (activeCard === card) clearActiveCard();
+    });
+    card.addEventListener('focus', () => setActiveCard(card));
+    card.addEventListener('blur', () => {
+      if (activeCard === card) clearActiveCard();
+    });
+    card.addEventListener('click', () => openLightbox(card));
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openLightbox(card);
+      }
+    });
+  });
+
+  lightbox.addEventListener('click', event => {
+    if (event.target === lightbox || event.target.dataset.close === 'true') {
+      closeLightbox();
+    }
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+      closeLightbox();
+    }
+  });
+}
+
+// ── Recognition badges — confetti celebration ──
+function initBadgeConfetti() {
+  const recognition = document.getElementById('recognition');
+  const badges = recognition?.querySelectorAll('.badge');
+
+  if (!recognition || !badges?.length) return;
+
+  const stage = document.createElement('div');
+  stage.className = 'confetti-stage';
+  document.body.appendChild(stage);
+
+  const baseHues = [0, 28, 52, 95, 150, 198, 232, 274, 316];
+
+  function shuffle(array) {
+    const result = array.slice();
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  }
+
+  function createPalette() {
+    const rotation = Math.floor(Math.random() * 360);
+    return shuffle(baseHues).map(hue => `hsl(${(hue + rotation) % 360} 92% 62%)`);
+  }
+
+  function randomBetween(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function attachVars(element, originX, originY, dx, dy, color, rotation, duration, startRotation) {
+    element.style.setProperty('--origin-x', `${originX}px`);
+    element.style.setProperty('--origin-y', `${originY}px`);
+    element.style.setProperty('--dx', `${dx}px`);
+    element.style.setProperty('--dy', `${dy}px`);
+    element.style.setProperty('--confetti-color', color);
+    element.style.setProperty('--rot', `${rotation}deg`);
+    element.style.setProperty('--duration', `${duration}ms`);
+    if (typeof startRotation === 'number') {
+      element.style.setProperty('--start-rot', `${startRotation}deg`);
+    }
+  }
+
+  function spawnBurst(originX, originY) {
+    const palette = createPalette();
+    const allNodes = [];
+
+    const glowCount = 3;
+    const flareCount = 14;
+    const chipCount = 24;
+    const ribbonCount = 12;
+
+    for (let i = 0; i < glowCount; i++) {
+      const glow = document.createElement('span');
+      glow.className = 'confetti-glow';
+      attachVars(
+        glow,
+        originX + randomBetween(-10, 10),
+        originY + randomBetween(-10, 10),
+        0,
+        0,
+        palette[i % palette.length],
+        0,
+        650
+      );
+      stage.appendChild(glow);
+      allNodes.push(glow);
+    }
+
+    for (let i = 0; i < flareCount; i++) {
+      const angle = (Math.PI * 2 * i) / flareCount + randomBetween(-0.14, 0.14);
+      const distance = randomBetween(70, 150);
+      const flare = document.createElement('span');
+      flare.className = 'confetti-flare';
+      attachVars(
+        flare,
+        originX,
+        originY,
+        Math.cos(angle) * distance,
+        Math.sin(angle) * distance - randomBetween(6, 34),
+        palette[i % palette.length],
+        randomBetween(90, 320),
+        randomBetween(800, 1100)
+      );
+      stage.appendChild(flare);
+      allNodes.push(flare);
+    }
+
+    for (let i = 0; i < chipCount; i++) {
+      const angle = randomBetween(-Math.PI * 0.92, -Math.PI * 0.08);
+      const distance = randomBetween(90, 240);
+      const chip = document.createElement('span');
+      chip.className = 'confetti-piece';
+      chip.style.width = `${randomBetween(8, 14)}px`;
+      chip.style.height = `${randomBetween(8, 14)}px`;
+      attachVars(
+        chip,
+        originX,
+        originY,
+        Math.cos(angle) * distance,
+        Math.sin(angle) * distance + randomBetween(-35, 70),
+        palette[i % palette.length],
+        randomBetween(180, 760),
+        randomBetween(900, 1300)
+      );
+      stage.appendChild(chip);
+      allNodes.push(chip);
+    }
+
+    for (let i = 0; i < ribbonCount; i++) {
+      const angle = randomBetween(-Math.PI * 0.88, -Math.PI * 0.12);
+      const distance = randomBetween(110, 280);
+      const ribbon = document.createElement('span');
+      ribbon.className = 'confetti-ribbon';
+      ribbon.style.width = `${randomBetween(6, 10)}px`;
+      ribbon.style.height = `${randomBetween(28, 48)}px`;
+      attachVars(
+        ribbon,
+        originX,
+        originY,
+        Math.cos(angle) * distance,
+        Math.sin(angle) * distance + randomBetween(-12, 96),
+        palette[i % palette.length],
+        randomBetween(220, 840),
+        randomBetween(1150, 1650),
+        randomBetween(-70, 70)
+      );
+      stage.appendChild(ribbon);
+      allNodes.push(ribbon);
+    }
+
+    window.setTimeout(() => {
+      allNodes.forEach(node => node.remove());
+    }, 1800);
+  }
+
+  badges.forEach(badge => {
+    badge.setAttribute('tabindex', '0');
+    badge.setAttribute('role', 'button');
+
+    function celebrate(event) {
+      const rect = badge.getBoundingClientRect();
+      const originX = event?.clientX ?? rect.left + rect.width / 2;
+      const originY = event?.clientY ?? rect.top + rect.height / 2;
+
+      badge.classList.remove('is-celebrating');
+      void badge.offsetWidth;
+      badge.classList.add('is-celebrating');
+      window.setTimeout(() => badge.classList.remove('is-celebrating'), 700);
+
+      spawnBurst(originX, originY);
+    }
+
+    badge.addEventListener('click', celebrate);
+    badge.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        celebrate();
+      }
+    });
+  });
 }
 
 // ── Navigation: sticky + scroll effect ──

@@ -3,44 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>沈龙翔（瓦叔） — AI产品经理 · AIGC实战专家</title>
-<meta name="description" content="20年技术沉淀，让AI在教育中自然发生。靠谱瓦叔的个人网站。">
+<title>沈龙翔（瓦叔）- 靠谱瓦叔AI趣探主理人</title>
+<meta name="description" content="沈龙翔（瓦叔）个人简历页：AI产品经理 / AIGC实战专家，靠谱瓦叔AI趣探主理人，聚焦政务传播、公共服务、教育创新与大型活动场景的 AIGC 落地实践。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  /* ═══ 页面专属样式：开篇大标题 + 小标题、4:3 案例图 ═══ */
+
+  /* 开篇 Loader —— 大标题居中 + 小标题居右 */
+  .loader-stack {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    flex-direction: column;
+  }
+  .loader-title-main {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+  }
+  .loader-title-sub {
+    margin-top: 14px;
+    padding-right: 4px;
+    text-align: right;
+    font-family: var(--font-sans);
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.92);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    text-shadow: 0 0 24px rgba(59, 130, 246, 0.45);
+  }
+  .loader.visible .loader-title-sub {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+  }
+  .loader.explode .loader-title-sub {
+    opacity: 0;
+    transform: translateY(-80px);
+    transition: opacity 0.6s var(--ease-explode), transform 0.6s var(--ease-explode);
+  }
+  /* 大标题逐字入场延迟（补齐 4~7 字） */
+  .loader.visible .loader-char:nth-child(4) { transition-delay: 0.36s; }
+  .loader.visible .loader-char:nth-child(5) { transition-delay: 0.44s; }
+  .loader.visible .loader-char:nth-child(6) { transition-delay: 0.52s; }
+  .loader.visible .loader-char:nth-child(7) { transition-delay: 0.60s; }
+  .loader.explode .loader-char:nth-child(4) { transition-delay: 0.18s; }
+  .loader.explode .loader-char:nth-child(5) { transition-delay: 0.24s; }
+  .loader.explode .loader-char:nth-child(6) { transition-delay: 0.30s; }
+  .loader.explode .loader-char:nth-child(7) { transition-delay: 0.36s; }
+
+  /* ═══ 照片墙 —— 无缝循环 + 真实图片 4:3 ═══ */
+  /* 用 margin-right 替代 gap，保证 -50% 首尾无缝衔接 */
+  .photo-wall-track {
+    gap: 0 !important;
+    animation: photoWallSeamless 40s linear infinite;
+  }
+  .photo-wall-group {
+    gap: 0;
+    flex-shrink: 0;
+  }
+  .photo-card {
+    width: 320px;
+    margin-right: 24px;
+  }
+  @keyframes photoWallSeamless {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (max-width: 768px) {
+    .photo-card { width: 260px; margin-right: 18px; }
+  }
+  .photo-card .photo-img-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #e5e7eb;
+  }
+  .photo-card .photo-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>
 </head>
 <body>
 
-<!-- ===== LOADER — Explosion Opening ===== -->
 <div class="loader" id="loader">
   <canvas class="loader-canvas" id="loaderCanvas"></canvas>
-  <div class="loader-content">
-    <span class="loader-char">靠</span>
-    <span class="loader-char">谱</span>
-    <span class="loader-char">瓦</span>
-    <span class="loader-char">叔</span>
-    <span class="loader-char">A</span>
-    <span class="loader-char">I</span>
-    <span class="loader-char">趣</span>
-    <span class="loader-char">探</span>
+  <div class="loader-stack">
+    <div class="loader-title-main">
+      <span class="loader-char">沈</span>
+      <span class="loader-char">龙</span>
+      <span class="loader-char">翔</span>
+      <span class="loader-char">（</span>
+      <span class="loader-char">瓦</span>
+      <span class="loader-char">叔</span>
+      <span class="loader-char">）</span>
+    </div>
+    <div class="loader-title-sub">「靠谱瓦叔AI趣探」主理人</div>
   </div>
 </div>
 
-<!-- ===== CUSTOM CURSOR — Blue Dot + Text Trail ===== -->
 <div class="cursor-custom" id="cursorCustom">
   <div class="cursor-dot"></div>
-  <span class="cursor-text-trail">带你认识瓦叔</span>
+  <span class="cursor-text-trail">带你了解瓦叔</span>
 </div>
 
-<!-- ===== NAVIGATION ===== -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#" class="nav-logo">沈龙翔（瓦叔）</a>
     <div class="nav-links">
-      <a href="#about">关于</a>
+      <a href="#about">综述</a>
+      <a href="#photo-wall">现场</a>
       <a href="#projects">项目</a>
-      <a href="#recognition">荣誉</a>
+      <a href="#recognition">背书</a>
       <a href="#skills">技能</a>
       <a href="#contact">联系</a>
     </div>
@@ -50,7 +133,6 @@
   </div>
 </nav>
 
-<!-- ===== HERO ===== -->
 <header class="hero">
   <div class="hero-bg">
     <div class="hero-shape hero-shape-1"></div>
@@ -58,15 +140,22 @@
     <div class="hero-shape hero-shape-3"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-tag reveal">AI产品经理 · AIGC实战专家 · 自媒体主理人</div>
+    <div class="hero-tag reveal">AI产品经理 · AIGC实战专家 · 「靠谱瓦叔AI趣探」主理人</div>
     <h1 class="hero-title split-text">
-      <span class="line"><span class="word">让</span><span class="word">AI</span><span class="word">在</span><span class="word">教育中</span></span>
-      <span class="line"><span class="word">自然</span><span class="word">发生</span></span>
+      <span class="line"><span class="word">用</span><span class="word">靠谱</span><span class="word">与</span><span class="word">趣味</span></span>
+      <span class="line"><span class="word">把</span><span class="word">AI</span><span class="word">带进</span><span class="word">真实场景</span></span>
     </h1>
-    <p class="hero-sub reveal">20年技术沉淀，从国家级直播保障到AI亲子教育。<br>我相信最好的教育，是和孩子一起「玩」出来的。</p>
+    <p class="hero-sub reveal">20 年技术沉淀，横跨国家级直播保障、政企内容生产、AI 工作流搭建与教育创新实践。<br>擅长把复杂业务 SOP 转化为可复制、可落地、可持续演进的 AIGC 解决方案，让 AI 真正服务于政务传播、公共服务与每一个家庭。</p>
     <div class="hero-cta reveal">
-      <a href="#projects" class="btn-primary">了解我的项目</a>
-      <a href="#contact" class="btn-ghost">联系我</a>
+      <a href="#showcase" class="btn-primary">查看实战案例</a>
+      <a href="#contact" class="btn-ghost">发起合作</a>
+    </div>
+    <div class="hero-chips reveal">
+      <span>政务传播</span>
+      <span>公共服务</span>
+      <span>Coze 工作流</span>
+      <span>结构化 Prompt</span>
+      <span>AI 亲子教育</span>
     </div>
   </div>
   <div class="hero-scroll-indicator">
@@ -74,127 +163,390 @@
   </div>
 </header>
 
-<!-- ===== NUMBERS STRIP ===== -->
 <section class="numbers">
   <div class="container">
     <div class="numbers-grid">
       <div class="num-card reveal">
         <span class="num-value" data-target="20">0</span>
         <span class="num-unit">年+</span>
-        <span class="num-label">技术深耕</span>
+        <span class="num-label">技术与传播融合经验</span>
       </div>
       <div class="num-card reveal">
         <span class="num-value" data-target="6">0</span>
         <span class="num-unit">年</span>
-        <span class="num-label">国家级直播零故障</span>
+        <span class="num-label">国家级直播零故障保障</span>
       </div>
       <div class="num-card reveal">
         <span class="num-value" data-target="160">0</span>
         <span class="num-unit">+</span>
-        <span class="num-label">嘉宾现场赋能</span>
+        <span class="num-label">文学周现场嘉宾 AI 赋能</span>
       </div>
       <div class="num-card reveal">
-        <span class="num-value" data-target="2000">0</span>
-        <span class="num-unit">万+</span>
-        <span class="num-label">直播观众触达</span>
+        <span class="num-value" data-target="50">0</span>
+        <span class="num-unit">%</span>
+        <span class="num-label">政企宣传内容效率提升</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== ABOUT ===== -->
 <section class="about" id="about">
   <div class="container">
     <div class="section-header reveal">
-      <h2 class="section-title">我是谁</h2>
-      <p class="section-sub">一个把 20 年技术功底，变成「玩中学」教育方法论的人</p>
+      <h2 class="section-title">专家综述</h2>
+      <p class="section-sub">20 年技术背景转型 AI 产品经理，把业务 SOP 转化为可落地的工作流与结构化内容机制</p>
+    </div>
+
+    <div class="profile-panel reveal">
+      <div>
+        <span class="profile-kicker">Profile</span>
+        <h3>沈龙翔 / Uncle Wa / 瓦叔</h3>
+        <p>AI 产品经理、AIGC 实战专家、自媒体主理人。精通将业务 SOP 转化为 Coze 工作流、智能体（Agent）与 RAG 知识库，擅长撰写高可用、结构化的 Prompt 与可复用的 Claude Code Skills。能够把复杂的「新质生产力」转化为通俗易懂的跨圈层科普，稳定交付到政务宣传、央国企产业赋能、法律/安全/教育等专业场景，以及女性与家庭数字素养、亲子教育与数字化美育等多维真实场景。</p>
+      </div>
+      <div class="profile-facts">
+        <span>上海</span>
+        <span>中国电信上海公司背景</span>
+        <span>人社局高级人工智能训练师</span>
+        <span>工信部生成式 AI 高级工程师</span>
+        <span>得到 2025 AI 年度报告实干家</span>
+      </div>
     </div>
 
     <div class="about-grid">
       <div class="about-card reveal">
         <div class="about-icon">🛠️</div>
-        <h3>复合型专家</h3>
-        <p>20 年技术背景转型 AI 产品经理。精通将业务 SOP 转化为 Coze 工作流与智能体，擅长撰写高可用、结构化的 Prompt。</p>
+        <h3>复合型实战专家</h3>
+        <p>从技术底座、内容生产到项目交付全链路理解业务，能够将复杂 SOP 梳理为 Coze 工作流、智能体调用链与结构化执行方案。</p>
       </div>
       <div class="about-card reveal">
-        <div class="about-icon">🎮</div>
-        <h3>玩中学践行者</h3>
-        <p>陪伴 4 年级女儿进行 AI 创意输出。运营「靠谱瓦叔 AI 趣探」，探索 AI + 亲子教育新模式，让技术变成家庭共创的桥梁。</p>
+        <div class="about-icon">📡</div>
+        <h3>场景化落地者</h3>
+        <p>既做过国家级重大活动直播保障，也能把 AIGC 能力应用到政企宣传、公共传播、教育赋能等真实业务场景中，强调稳定性与实用价值。</p>
       </div>
       <div class="about-card reveal">
         <div class="about-icon">🎤</div>
-        <h3>影响力布道者</h3>
-        <p>做客罗振宇直播间，作为「AI 家庭教育实践者」分享理念。深度参与杨浦区网信办联合抖音集团创办的「V 聚场 AI 开放麦」公益科普，获区委书记颁发优秀导师奖状。</p>
+        <h3>传播与赋能者</h3>
+        <p>持续通过公开分享、训练营辅导、公益科普和内容运营推动 AI 普及，帮助组织与个体理解并使用 AIGC，缩短「知道」到「会用」的距离。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== PROJECTS ===== -->
+<section class="focus">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title">赋能方向</h2>
+      <p class="section-sub">从内容到流程，从工具到方法，让 AI 真正服务于业务效率、公众沟通与教育创新</p>
+    </div>
+    <div class="focus-grid">
+      <div class="focus-card reveal">
+        <h3>政务传播</h3>
+        <p>面向政企宣传与大型活动传播，优化内容生产、视觉表达与信息触达效率，把 AI 能力嵌入正式业务表达。</p>
+      </div>
+      <div class="focus-card reveal">
+        <h3>公共服务</h3>
+        <p>通过工作流设计和智能体能力，把经验型流程转化为可复制的标准化协作方案，服务于内容标准化与知识复用。</p>
+      </div>
+      <div class="focus-card reveal">
+        <h3>教育赋能</h3>
+        <p>聚焦 AI 与家庭教育、教师成长、亲子共创结合，形成「玩中学」的实践路径，化解抵触、自然发生。</p>
+      </div>
+      <div class="focus-card reveal">
+        <h3>大型活动</h3>
+        <p>适配论坛、展会、研讨会和重要活动中的内容准备、现场表达、视觉辅助和技术协同，保障高压现场稳定交付。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="projects" id="projects">
   <div class="container">
     <div class="section-header reveal">
-      <h2 class="section-title">重点项目</h2>
-      <p class="section-sub">从进博会到AI亲子创客营，每一个项目都是一次「让AI落地」的实践</p>
+      <h2 class="section-title">重点项目与活动</h2>
+      <p class="section-sub">以实战项目验证方法论，用可见成果建立专业信任</p>
     </div>
 
     <div class="project-timeline">
-      <div class="project-card reveal" data-year="2026">
+      <div class="project-card reveal" data-year="2026.07">
+        <div class="project-meta">
+          <span class="project-tag">智慧城市研究院</span>
+        </div>
+        <h3>「AI创想SHOW」智能办公专题培训特邀讲师</h3>
+        <p>受邀担任上海智慧城市发展研究院主办的「AI创想SHOW——开启智能办公新体验」专题培训讲师，主讲《AI智能体工作流实战——法律人自动化助理与知识库搭建》。基于扣子（Coze）平台，系统讲解智能体工作流核心参数与节点，手把手带领学员完成合同审查自动化工作流与法律专业知识库（RAG）构建。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.07">
+        <div class="project-meta">
+          <span class="project-tag">央企内训</span>
+        </div>
+        <h3>中车青岛四方《国产大模型与行业应用》企业内训讲师</h3>
+        <p>受邀为中车青岛四方机车车辆股份有限公司「人工智能全栈技术培训班」主讲《国产大模型与行业应用》课程。从「大模型是知识放大器」切入，全景拆解 DeepSeek、通义千问、文心一言等国产大模型，并结合轨道交通场景解析中车自研「风驰/轩构/轩知/轩鉴」行业大模型在仿真、设计、安全监测与故障检测环节的落地实践。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.06">
+        <div class="project-meta">
+          <span class="project-tag">人民网报道</span>
+        </div>
+        <h3>「家+有AI」妇联主题活动总策划 & 联合主讲</h3>
+        <p>受邀担任妇联「家+有AI」主题活动总策划，负责整体方案策划、内容设计与现场节奏把控，并首次带着女儿同台登台做联合分享，以真实亲子共创案例生动呈现 AI 在家庭陪伴、家庭教育与家庭表达场景中的温度与可能。活动得到<strong>人民网</strong>官方专题报道，成为 AI 赋能家庭关系与女性群体数字化素养提升的代表性案例。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.06">
+        <div class="project-meta">
+          <span class="project-tag">圆桌主持</span>
+        </div>
+        <h3>人工智能安全与发展沙龙三场圆桌论坛主持人</h3>
+        <p>受邀担任上海市信息网络安全管理协会主办的「人工智能安全与发展沙龙」活动主持人，连续主持三场圆桌论坛。围绕人工智能安全治理、产业发展与场景落地等核心议题，串联行业专家与企业代表展开高质量对话，兼具议题把控、现场节奏掌控与跨界观点整合能力。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.06">
+        <div class="project-meta">
+          <span class="project-tag">公益共学</span>
+        </div>
+        <h3>WaytoAGI 线下亲子场分享会特邀嘉宾</h3>
+        <p>受邀参与 WaytoAGI 线下亲子场分享会，围绕 AI 共学、亲子共创与家庭场景下的 AIGC 实践展开交流，结合真实案例输出可被家庭复用的 AI 使用路径与陪伴式学习方法，推动 AI 能力在 C 端家庭场景的友好落地。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.05">
+        <div class="project-meta">
+          <span class="project-tag">政务宣传</span>
+        </div>
+        <h3>上海消防 AI 赋能消防宣传实战特训营主讲讲师</h3>
+        <p>受上海消防邀请，在上海消防基地面向全市消防宣传员开展「AI赋能消防宣传实战特训营」专题培训。课程围绕消防宣传内容生产全流程，系统讲授政策解读转译、案例脚本生成、分镜拆解、即梦生图、图生视频与剪映拼接，结合《消防宣传AI提示词手册》与「五步生图提示词」方法论，帮助宣传岗位快速转化为可落地的宣传生产力。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.04">
         <div class="project-meta">
           <span class="project-tag">红网报道</span>
         </div>
-        <h3>湖南首个高阶 AI 亲子创客营特邀导师</h3>
-        <p>在湖南师范大学美术学院，为 3-6 年级亲子家庭系统带教——AI 通识启蒙、纸上原型图设计、极限测试与 Debug 实操，通过引导孩子主动给 AI「找茬」，在共创中提升逻辑思维与表达自信。</p>
+        <h3>湖南首个高阶 AI 亲子创客营特邀专家讲师</h3>
+        <p>受邀在湖南师范大学美术学院为 20 组 3-6 年级亲子家庭授课，围绕 AI 通识启蒙、纸上原型图设计、极限测试与 Debug 实操展开系统带教。通过引导孩子主动给 AI「找茬」，反复调试并完成路演展示，帮助家庭在共创中提升逻辑思维、抗挫折能力与表达自信，验证「玩中学 AI，亲子共创解决问题」的教育方法论。活动获湖南省委官方主流媒体「红网」深度专题报道。</p>
       </div>
 
-      <div class="project-card reveal" data-year="2026">
+      <div class="project-card reveal" data-year="2026.04">
         <div class="project-meta">
-          <span class="project-tag">教育赋能</span>
+          <span class="project-tag">基层干部赋能</span>
         </div>
-        <h3>上海市班主任杨春平工作室 — AI 赋能教育分享嘉宾</h3>
-        <p>面向全国优秀班主任代表，结合班主任专业成长与学生管理一线需求，输出可落地的 AIGC 实践思路，推动技术赋能教育研修与经验传承。</p>
+        <h3>青浦区团委干部 AIGC 专项科普培训专家</h3>
+        <p>联合上海市人工智能行业协会，为青浦区团委干部开展科普讲座。以通俗易懂的语言对复杂智能体技术进行「祛魅」，有效提升基层政务干部的数字素养与前沿科技治理洞察力。</p>
       </div>
 
-      <div class="project-card reveal" data-year="2026">
+      <div class="project-card reveal" data-year="2026.03">
         <div class="project-meta">
           <span class="project-tag">共青团中央报道</span>
         </div>
         <h3>春芽儿童文学周「跨界合作研讨会」特邀嘉宾</h3>
-        <p>在圆桌论坛中分享 AI 赋能亲子阅读实战案例，现场为 160 余位嘉宾生成专属「次元合影」，完美融合文学元素与数字艺术，获共青团中央官方记录与报道。</p>
+        <p>作为 AIGC 技术专家与创新实践代表出席（联合主办：杨浦区委、上海团市委、中少总社），向 160 余位政府领导及出版界专家汇报「AI 赋能亲子阅读与新大众文艺」成果。现场运用前沿技术为与会领导生成数字艺术「次元合影」，直观展示新质生产力对传统文化产业的赋能潜力，获「共青团中央」官方专门记录与报道。</p>
       </div>
 
-      <div class="project-card reveal" data-year="2026">
+      <div class="project-card reveal" data-year="2026.03">
+        <div class="project-meta">
+          <span class="project-tag">教育研修</span>
+        </div>
+        <h3>上海市中小学班主任带头人工作室专题分享专家</h3>
+        <p>受邀作为特邀专家参与线下交流活动，面向工作室学员及全国优秀班主任代表开展「AI 赋能教育场景」专题宣讲。紧密结合一线教师专业成长、学生班级数字化管理与家校数字互动等实际需求，系统性输出可落地的 AIGC 实践范式与教学研修思路，推动前沿大模型技术与体制内教育研修体系的深度融合。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.03">
+        <div class="project-meta">
+          <span class="project-tag">产业代表</span>
+        </div>
+        <h3>火山工场 AI Agent 产业园开业典礼产业代表</h3>
+        <p>在「火创新章 云耀杨浦」主题大会上，作为园区重点生态企业代表受邀登台发表演讲，分享 AI 智能体在实际产业应用领域的探索经验，其前瞻性视野与落地能力受到出席的杨浦区委书记等领导高度评价。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.03">
+        <div class="project-meta">
+          <span class="project-tag">开发者大会</span>
+        </div>
+        <h3>2026 全球开发者先锋大会 (GDPS) 专项实操讲师</h3>
+        <p>在徐汇西岸国际会展中心受邀担任「OpenClaw 智能体全流程技术实操」全天工坊主讲人，为行业开发者与政企数字化代表提供从环境配置到自动化工作流搭建的深度技术剖析与演练。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2025 全球开发者先锋大会">
+        <div class="project-meta">
+          <span class="project-tag">女性科技赋能</span>
+        </div>
+        <h3>「她力量·AI未来」创新训练营特邀讲师</h3>
+        <p>受邀担任上海市经信妇工委主办的「她力量·AI未来」创新训练营讲师，聚焦 AI 视频生成等前沿技术，为女性科技工作者及政企骨干提供专业技术趋势解读，助力数字时代的产业生态创新发展。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="2026.01">
         <div class="project-meta">
           <span class="project-tag">得到直播</span>
         </div>
-        <h3>罗振宇「时间的朋友」— 得到客厅直播访谈嘉宾</h3>
-        <p>作为「得到 2025 AI 年度报告实干家」做客直播间，分享「化解抵触情绪，怎么用 AI 让教育在『玩』中自然发生」，确立了 AI 亲子教育专家形象。</p>
+        <h3>罗振宇「时间的朋友」得到客厅直播访谈嘉宾</h3>
+        <p>以「得到 2025 AI 年度报告实干家」身份做客直播间，分享「化解抵触情绪，怎么用 AI 让教育在『玩』中自然发生」，确立了 AI 亲子教育专家形象。</p>
       </div>
 
-      <div class="project-card reveal" data-year="2025">
+      <div class="project-card reveal" data-year="2025.10 — 至今">
         <div class="project-meta">
-          <span class="project-tag">公益科普</span>
+          <span class="project-tag">本地官媒报道</span>
         </div>
-        <h3>「V 聚场：AI 开放麦」共建与导师</h3>
-        <p>深度参与杨浦区网信办联合抖音集团创办的公益活动，每周进行技术分享与公益科普，获杨浦区区委书记颁发「优秀导师」荣誉，并作为代表发言。</p>
+        <h3>「V 聚场·AI 开放麦」核心共建者 & 首发讲师</h3>
+        <p>作为杨浦区委网信办主办、旨在拉平大众信息差的市级公益项目核心讲师长期深耕。凭借突出的科技普惠贡献，荣获<strong>杨浦区委书记亲自授奖的「优秀导师」</strong>称号，并作为代表向全社会发表数字赋能主题倡议。</p>
       </div>
 
-      <div class="project-card reveal" data-year="2025">
+      <div class="project-card reveal" data-year="2025.09">
         <div class="project-meta">
-          <span class="project-tag">创新创业</span>
+          <span class="project-tag">浦江同舟报道</span>
         </div>
-        <h3>上海创新创业青年 50 人论坛 — AIGC 训练营导师</h3>
-        <p>辅导学员团队完成从创意构思到 AIGC 落地的全过程。</p>
+        <h3>上海创新创业青年 50 人论坛 AIGC 训练营导师</h3>
+        <p>作为上海市级标杆性青年创新创业矩阵项目「AIGC 创新创作训练营」特邀导师全程参与，辅导学员团队利用 AIGC 工具实现业务模式升级与技术落地，完成从创意构思到落地的完整实践链路。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="长期项目">
+        <div class="project-meta">
+          <span class="project-tag">重大活动保障</span>
+        </div>
+        <h3>进博会 × CCTV 7×24 小时慢直播技术总负责</h3>
+        <p>技术总负责第五届进博会与 CCTV 合作 7×24 小时慢直播，连续 6 年保障核心论坛直播零故障，体现出在国家级重点活动中的稳定性、跨团队协同能力和现场应变能力。</p>
+      </div>
+
+      <div class="project-card reveal" data-year="效率提升">
+        <div class="project-meta">
+          <span class="project-tag">政企内容生产</span>
+        </div>
+        <h3>5G + 数字人政企宣传片 AIGC 实践</h3>
+        <p>率先引入 5G 及数字人技术制作政企宣传片，通过数字人与智能化流程优化整体产出方式，使整体制作效率提升 50%。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== RECOGNITION ===== -->
+<section class="photo-wall" id="photo-wall">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title">现场照片墙</h2>
+      <p class="section-sub">来自论坛现场、专题分享、荣誉合影与案例实拍的真实记录，图片以 4:3 呈现</p>
+    </div>
+    <div class="photo-wall-track">
+      <div class="photo-wall-group">
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 妇联家有AI">
+          <div class="photo-img-wrap"><img src="images/瓦叔_妇联家有AI.jpg" alt="妇联家有AI主题活动"></div>
+          <div class="photo-caption">妇联「家+有AI」父女同台（人民网报道）</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 智慧院法律Coze">
+          <div class="photo-img-wrap"><img src="images/瓦叔_智慧院法律Coze.jpg" alt="智慧院法律Coze培训"></div>
+          <div class="photo-caption">智慧城研究院：法律人 Coze 工作流实战</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 网安沙龙">
+          <div class="photo-img-wrap"><img src="images/瓦叔_网安沙龙.jpg" alt="网安沙龙圆桌主持"></div>
+          <div class="photo-caption">人工智能安全与发展沙龙：圆桌主持</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 WaytoAGI亲子">
+          <div class="photo-img-wrap"><img src="images/瓦叔_WaytoAGI亲子.jpg" alt="WaytoAGI亲子分享会"></div>
+          <div class="photo-caption">WaytoAGI：线下亲子场 AI 共学分享</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 上海消防特训">
+          <div class="photo-img-wrap"><img src="images/瓦叔_上海消防特训.jpg" alt="上海消防特训营"></div>
+          <div class="photo-caption">上海消防：AI 赋能宣传实战特训营</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 湖南亲子创客营">
+          <div class="photo-img-wrap"><img src="images/瓦叔_湖南亲子创客营.jpg" alt="湖南亲子创客营"></div>
+          <div class="photo-caption">湖南 AI 亲子创客营（红网报道）</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 青浦团委科普">
+          <div class="photo-img-wrap"><img src="images/瓦叔_青浦团委科普.jpg" alt="青浦团委科普"></div>
+          <div class="photo-caption">青浦区团委：基层干部 AIGC 科普</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 春芽文学周">
+          <div class="photo-img-wrap"><img src="images/瓦叔_春芽文学周.jpg" alt="春芽文学周"></div>
+          <div class="photo-caption">春芽儿童文学周（共青团中央报道）</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 杨春平工作室">
+          <div class="photo-img-wrap"><img src="images/瓦叔_杨春平工作室.png" alt="杨春平工作室"></div>
+          <div class="photo-caption">中小学班主任带头人工作室专题分享</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 火山工场发言">
+          <div class="photo-img-wrap"><img src="images/瓦叔_火山工场发言.jpg" alt="火山工场发言"></div>
+          <div class="photo-caption">火山工场：AI 产业生态代表发言</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 GDPS开放麦">
+          <div class="photo-img-wrap"><img src="images/瓦叔_GDPS开放麦.jpg" alt="GDPS开放麦"></div>
+          <div class="photo-caption">GDPS 2026：智能体全流程实操工坊</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 浦江50人论坛">
+          <div class="photo-img-wrap"><img src="images/瓦叔_浦江50人论坛.jpg" alt="浦江50人论坛"></div>
+          <div class="photo-caption">创新创业 50 人论坛（浦江同舟报道）</div>
+        </article>
+        <article class="photo-card reveal" tabindex="0" role="button" aria-label="查看 V聚场导师">
+          <div class="photo-img-wrap"><img src="images/瓦叔_V聚场导师.jpg" alt="V聚场导师授奖"></div>
+          <div class="photo-caption">V 聚场·AI 开放麦：优秀导师授奖</div>
+        </article>
+      </div>
+      <div class="photo-wall-group" aria-hidden="true">
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 妇联家有AI">
+          <div class="photo-img-wrap"><img src="images/瓦叔_妇联家有AI.jpg" alt="妇联家有AI主题活动"></div>
+          <div class="photo-caption">妇联「家+有AI」父女同台（人民网报道）</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 智慧院法律Coze">
+          <div class="photo-img-wrap"><img src="images/瓦叔_智慧院法律Coze.jpg" alt="智慧院法律Coze培训"></div>
+          <div class="photo-caption">智慧城研究院：法律人 Coze 工作流实战</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 网安沙龙">
+          <div class="photo-img-wrap"><img src="images/瓦叔_网安沙龙.jpg" alt="网安沙龙圆桌主持"></div>
+          <div class="photo-caption">人工智能安全与发展沙龙：圆桌主持</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 WaytoAGI亲子">
+          <div class="photo-img-wrap"><img src="images/瓦叔_WaytoAGI亲子.jpg" alt="WaytoAGI亲子分享会"></div>
+          <div class="photo-caption">WaytoAGI：线下亲子场 AI 共学分享</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 上海消防特训">
+          <div class="photo-img-wrap"><img src="images/瓦叔_上海消防特训.jpg" alt="上海消防特训营"></div>
+          <div class="photo-caption">上海消防：AI 赋能宣传实战特训营</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 湖南亲子创客营">
+          <div class="photo-img-wrap"><img src="images/瓦叔_湖南亲子创客营.jpg" alt="湖南亲子创客营"></div>
+          <div class="photo-caption">湖南 AI 亲子创客营（红网报道）</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 青浦团委科普">
+          <div class="photo-img-wrap"><img src="images/瓦叔_青浦团委科普.jpg" alt="青浦团委科普"></div>
+          <div class="photo-caption">青浦区团委：基层干部 AIGC 科普</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 春芽文学周">
+          <div class="photo-img-wrap"><img src="images/瓦叔_春芽文学周.jpg" alt="春芽文学周"></div>
+          <div class="photo-caption">春芽儿童文学周（共青团中央报道）</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 杨春平工作室">
+          <div class="photo-img-wrap"><img src="images/瓦叔_杨春平工作室.png" alt="杨春平工作室"></div>
+          <div class="photo-caption">中小学班主任带头人工作室专题分享</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 火山工场发言">
+          <div class="photo-img-wrap"><img src="images/瓦叔_火山工场发言.jpg" alt="火山工场发言"></div>
+          <div class="photo-caption">火山工场：AI 产业生态代表发言</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 GDPS开放麦">
+          <div class="photo-img-wrap"><img src="images/瓦叔_GDPS开放麦.jpg" alt="GDPS开放麦"></div>
+          <div class="photo-caption">GDPS 2026：智能体全流程实操工坊</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 浦江50人论坛">
+          <div class="photo-img-wrap"><img src="images/瓦叔_浦江50人论坛.jpg" alt="浦江50人论坛"></div>
+          <div class="photo-caption">创新创业 50 人论坛（浦江同舟报道）</div>
+        </article>
+        <article class="photo-card" tabindex="0" role="button" aria-label="查看 V聚场导师">
+          <div class="photo-img-wrap"><img src="images/瓦叔_V聚场导师.jpg" alt="V聚场导师授奖"></div>
+          <div class="photo-caption">V 聚场·AI 开放麦：优秀导师授奖</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+  <div class="photo-lightbox-backdrop" data-close="true"></div>
+  <div class="photo-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="photoLightboxTitle">
+    <button class="photo-lightbox-close" id="photoLightboxClose" aria-label="关闭预览">×</button>
+    <div class="photo-lightbox-media" id="photoLightboxMedia"></div>
+    <p class="photo-lightbox-caption" id="photoLightboxTitle"></p>
+  </div>
+</div>
+
 <section class="recognition" id="recognition">
   <div class="container">
     <div class="section-header reveal">
       <h2 class="section-title">荣誉与身份</h2>
+      <p class="section-sub">来自平台、机构与专业领域的持续认可</p>
     </div>
 
     <div class="badge-wall">
@@ -204,7 +556,7 @@
       </div>
       <div class="badge reveal">
         <span class="badge-icon">🎖️</span>
-        <span class="badge-name">V 聚场 · AI 开放麦优秀导师</span>
+        <span class="badge-name">杨浦区 V 聚场 AI 开放麦优秀导师</span>
       </div>
       <div class="badge reveal">
         <span class="badge-icon">📜</span>
@@ -220,7 +572,7 @@
       </div>
       <div class="badge reveal">
         <span class="badge-icon">🏝️</span>
-        <span class="badge-name">刘润 · 进化岛商业社群入驻博主</span>
+        <span class="badge-name">刘润进化岛商业社群入驻博主</span>
       </div>
       <div class="badge reveal">
         <span class="badge-icon">✍️</span>
@@ -230,11 +582,11 @@
   </div>
 </section>
 
-<!-- ===== EXPERIENCE ===== -->
 <section class="experience" id="experience">
   <div class="container">
     <div class="section-header reveal">
       <h2 class="section-title">工作经历</h2>
+      <p class="section-sub">从技术专家到 AIGC 产品实践者，持续把经验沉淀为面向场景的能力</p>
     </div>
 
     <div class="exp-grid">
@@ -242,10 +594,10 @@
         <div class="exp-period">2025.07 — 至今</div>
         <h3>AI 产品经理 · 独立专家 · 自媒体主理人</h3>
         <ul>
-          <li>Coze 工作流开发：搭建智能体调用工作流，实现业务流程自动化闭环</li>
-          <li>结构化提示词工程：产出高质量海报、模特图、简报及结构化内容</li>
-          <li>AI 运营与教育：运营「靠谱瓦叔 AI 趣探」，探索 AI + 亲子教育新模式</li>
-          <li>社区共建：作为「V 聚场」共建者与优秀导师，每周技术分享与公益科普</li>
+          <li>Coze 工作流开发：开发多款实用 Skills，搭建智能体调用工作流，实现业务流程自动化闭环。</li>
+          <li>结构化提示词工程：针对海报、模特图、简报及结构化内容等场景，产出高质量 Prompt 与可复用模板。</li>
+          <li>AI 运营与教育：运营「靠谱瓦叔 AI 趣探」，探索 AI 与亲子教育、公共分享相结合的新模式。</li>
+          <li>社区共建：作为「V 聚场：AI 开放麦」的共建者与优秀导师，持续进行技术分享与公益科普。</li>
         </ul>
       </div>
 
@@ -254,95 +606,143 @@
         <h3>新媒体直播技术专家 & AIGC 顾问</h3>
         <div class="exp-org">中国电信上海公司</div>
         <ul>
-          <li>AIGC 落地：率先引入 5G 及数字人技术制作政企宣传片，效率提升 50%</li>
-          <li>国家级项目：技术总负责第五届进博会 × CCTV 7×24 小时慢直播，连续 6 年保障核心论坛直播零故障</li>
+          <li>AIGC 落地：率先引入 5G 与数字人技术制作政企宣传片，显著优化内容生产效率，整体效率提升 50%。</li>
+          <li>国家级项目：技术总负责第五届进博会与 CCTV 合作 7×24 小时慢直播，连续 6 年保障核心论坛直播零故障。</li>
+          <li>复杂项目交付：参与全国重要活动直播保障与重大传播任务，兼顾稳定性、协同效率与现场执行力。</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SKILLS ===== -->
 <section class="skills" id="skills">
   <div class="container">
     <div class="section-header reveal">
       <h2 class="section-title">核心技能</h2>
+      <p class="section-sub">聚焦可直接用于业务落地的 AIGC 能力组合</p>
     </div>
 
     <div class="skills-grid">
       <div class="skill-group reveal">
         <h3>提示词工程</h3>
         <div class="skill-tags">
-          <span>元提示词</span><span>结构化提示词</span><span>多模态 Prompt</span>
+          <span>元提示词</span><span>结构化提示词</span><span>多场景模板设计</span><span>提示词 Debug</span><span>海报 / 简报 / 教学 Prompt</span>
         </div>
       </div>
       <div class="skill-group reveal">
-        <h3>AI 开发</h3>
+        <h3>智能体 & 工作流开发</h3>
         <div class="skill-tags">
-          <span>Claude Code Skills</span><span>Coze 工作流</span><span>AI 智能体</span>
+          <span>Coze 智能体</span><span>Coze 工作流</span><span>Claude Code Skills</span><span>Agent 调用链设计</span><span>业务 SOP 自动化闭环</span>
         </div>
       </div>
       <div class="skill-group reveal">
-        <h3>AI 图像</h3>
+        <h3>知识库 & RAG</h3>
         <div class="skill-tags">
-          <span>Midjourney</span><span>Stable Diffusion</span><span>即梦 AI</span>
+          <span>RAG 知识库构建</span><span>法律 / 行业专业知识库</span><span>合同审查自动化</span><span>知识复用与检索增强</span>
         </div>
       </div>
       <div class="skill-group reveal">
-        <h3>数字人 & 自动化</h3>
+        <h3>国产大模型应用</h3>
         <div class="skill-tags">
-          <span>AI 数字人技术</span><span>RPA 自动化</span>
+          <span>DeepSeek</span><span>通义千问</span><span>文心一言</span><span>Kimi</span><span>豆包</span><span>行业大模型落地</span>
         </div>
       </div>
       <div class="skill-group reveal">
-        <h3>直播 & 制作</h3>
+        <h3>AI 图像 & 视频</h3>
         <div class="skill-tags">
-          <span>OBS 直播技术</span><span>专业剪辑</span>
+          <span>Midjourney</span><span>Stable Diffusion</span><span>即梦生图</span><span>图生视频</span><span>视觉内容生成</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>数字人与自动化</h3>
+        <div class="skill-tags">
+          <span>AI 数字人技术</span><span>RPA 自动化</span><span>流程标准化</span><span>剪映拼接</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>直播与制作</h3>
+        <div class="skill-tags">
+          <span>OBS 直播技术</span><span>专业剪辑</span><span>大型活动保障</span><span>7×24 慢直播</span>
         </div>
       </div>
       <div class="skill-group reveal">
         <h3>垂直领域</h3>
         <div class="skill-tags">
-          <span>AI + 家庭教育</span><span>AI + 教育赋能</span>
+          <span>政务传播</span><span>公共服务</span><span>央国企产业赋能</span><span>法律科技</span><span>AI + 家庭教育</span><span>数字化美育</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== MARQUEE ===== -->
-<section class="marquee-section">
-  <div class="marquee-track">
-    <div class="marquee-content">
-      <span>AI亲子教育</span><span class="marquee-dot">·</span>
-      <span>提示词工程</span><span class="marquee-dot">·</span>
-      <span>Coze工作流</span><span class="marquee-dot">·</span>
-      <span>数字人技术</span><span class="marquee-dot">·</span>
-      <span>直播技术</span><span class="marquee-dot">·</span>
-      <span>玩中学</span><span class="marquee-dot">·</span>
-      <span>AI教育布道</span><span class="marquee-dot">·</span>
+<section class="highlights" id="highlights">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title">高光时刻</h2>
+      <p class="section-sub">来自项目现场、媒体报道与专业认可的代表性瞬间</p>
     </div>
-    <div class="marquee-content" aria-hidden="true">
-      <span>AI亲子教育</span><span class="marquee-dot">·</span>
-      <span>提示词工程</span><span class="marquee-dot">·</span>
-      <span>Coze工作流</span><span class="marquee-dot">·</span>
-      <span>数字人技术</span><span class="marquee-dot">·</span>
-      <span>直播技术</span><span class="marquee-dot">·</span>
-      <span>玩中学</span><span class="marquee-dot">·</span>
-      <span>AI教育布道</span><span class="marquee-dot">·</span>
+    <div class="highlights-grid">
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">人民网报道</span>
+        <h3>妇联「家+有AI」主题活动</h3>
+        <p>担任总策划并首次带女儿同台分享，以真实亲子共创案例呈现 AI 在家庭场景的温度，获人民网官方专题报道。</p>
+      </article>
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">共青团中央报道</span>
+        <h3>春芽儿童文学周跨界合作</h3>
+        <p>把文学、阅读与 AI 图像生成结合，现场为 160 余位嘉宾生成「次元合影」，形成具传播力的跨界活动案例。</p>
+      </article>
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">红网报道</span>
+        <h3>湖南 AI 亲子创客营</h3>
+        <p>围绕 AI 通识、原型设计和 Debug 实操，验证亲子共创的教学方法论，获湖南省委官方主流媒体深度报道。</p>
+      </article>
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">本地官媒报道</span>
+        <h3>V 聚场·AI 开放麦优秀导师</h3>
+        <p>作为市级公益项目核心讲师长期深耕，获杨浦区委书记亲自授奖「优秀导师」，并作为代表发表数字赋能倡议。</p>
+      </article>
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">浦江同舟报道</span>
+        <h3>创新创业青年 50 人论坛导师</h3>
+        <p>作为 AIGC 创新创作训练营特邀导师全程参与，辅导学员团队完成从创意构思到技术落地的完整实践链路。</p>
+      </article>
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">平台访谈</span>
+        <h3>得到直播分享 AI 家庭教育实践</h3>
+        <p>以「得到 2025 AI 年度报告实干家」身份做客罗振宇直播间，聚焦「如何降低抵触感」，让 AI 自然进入教育场景。</p>
+      </article>
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">央企认可</span>
+        <h3>中车四方国产大模型企业内训</h3>
+        <p>受邀为大型央企人工智能全栈培训班主讲国产大模型课程，结合轨道交通场景解析行业大模型落地实践。</p>
+      </article>
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">社群认可</span>
+        <h3>刘润进化岛商业社群入驻博主</h3>
+        <p>专业内容持续输出，建立兼具方法论与实战经验的个人品牌影响力。</p>
+      </article>
+      <article class="highlight-card reveal">
+        <span class="highlight-tag">教育研修</span>
+        <h3>班主任带头人工作室专题分享</h3>
+        <p>面向全国优秀班主任代表，输出可直接迁移到教学管理中的 AIGC 实践范式与研修思路。</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ===== CONTACT ===== -->
 <section class="contact" id="contact">
   <div class="container">
     <div class="section-header reveal">
       <h2 class="section-title">联系我</h2>
-      <p class="section-sub">关注「靠谱瓦叔 AI 趣探」，一起探索 AI + 教育的无限可能</p>
+      <p class="section-sub">欢迎围绕政务传播、公共服务、AI 教育赋能与内容生产效率提升展开合作交流</p>
     </div>
 
     <div class="contact-grid reveal">
+      <div class="contact-item">
+        <span class="contact-label">电话</span>
+        <a href="tel:13774296090" class="contact-value">13774296090</a>
+      </div>
       <div class="contact-item">
         <span class="contact-label">邮箱</span>
         <a href="mailto:robinshen84@qq.com" class="contact-value">robinshen84@qq.com</a>
@@ -359,10 +759,9 @@
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="container">
-    <p>© 2026 沈龙翔（瓦叔）. 让 AI 在教育中自然发生。</p>
+    <p>© 2026 沈龙翔（瓦叔）·「靠谱瓦叔 AI 趣探」主理人. 让 AIGC 在真实场景中创造可见价值。</p>
   </div>
 </footer>
 
